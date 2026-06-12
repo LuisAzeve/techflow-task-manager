@@ -87,7 +87,7 @@ O projeto utiliza **Pytest** para validação das funcionalidades básicas da ap
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/SEU-USUARIO/techflow-task-manager.git
+git clone https://github.com/luisAzeve/techflow-task-manager.git
 ```
 
 ### 2. Acesse a pasta do projeto

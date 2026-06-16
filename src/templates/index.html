@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,15 +7,54 @@
 </head>
 <body>
 
-    {% extends "base.html" %}
+{% extends "base.html" %}
+
+{% block title %}Tarefas · TechFlow{% endblock %}
 
 {% block content %}
 
-<h2>Lista de Tarefas</h2>
+{% set tasks = tasks if tasks is defined and tasks else [
+    {'id': 1, 'titulo': 'Revisar backlog do sprint', 'descricao': 'Conferir prioridades antes da reunião de planejamento.', 'prioridade': 'Alta', 'prioridade_class': 'alta', 'status': 'Em andamento', 'status_class': 'andamento'},
+    {'id': 2, 'titulo': 'Atualizar documentação da API', 'descricao': 'Adicionar exemplos de uso dos endpoints novos.', 'prioridade': 'Média', 'prioridade_class': 'media', 'status': 'Pendente', 'status_class': 'pendente'},
+    {'id': 3, 'titulo': 'Corrigir bug no login', 'descricao': 'Usuários relataram falha ao redefinir senha.', 'prioridade': 'Alta', 'prioridade_class': 'alta', 'status': 'Pendente', 'status_class': 'pendente'},
+    {'id': 4, 'titulo': 'Organizar reunião de retrospectiva', 'descricao': 'Agendar para a última sexta-feira do mês.', 'prioridade': 'Baixa', 'prioridade_class': 'baixa', 'status': 'Concluída', 'status_class': 'concluida'}
+] %}
 
-<p>Bem-vindo ao sistema de gerenciamento de tarefas da TechFlow Solutions.</p>
+<div class="page-header">
+    <div>
+        <h1>Lista de tarefas</h1>
+        <p class="page-subtitle">Acompanhe o andamento do time em tempo real.</p>
+    </div>
+    <a href="{{ url_for('main.criar_tarefa') }}" class="btn btn-primary">+ Nova tarefa</a>
+</div>
 
-<a href="/create">Criar Nova Tarefa</a>
+{% if tasks %}
+<ul class="task-list">
+    {% for task in tasks %}
+    <li class="task-card">
+        <div class="task-main">
+            <span class="priority-dot priority-{{ task.prioridade_class }}" title="Prioridade {{ task.prioridade }}"></span>
+            <div>
+                <h3 class="task-title">{{ task.titulo }}</h3>
+                <p class="task-desc">{{ task.descricao }}</p>
+            </div>
+        </div>
+        <div class="task-meta">
+            <span class="badge status-{{ task.status_class }}">{{ task.status }}</span>
+            <div class="task-actions">
+                <a href="#" class="link-action">Editar</a>
+                <a href="#" class="link-action link-danger">Excluir</a>
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<div class="empty-state">
+    <p>Nenhuma tarefa cadastrada ainda.</p>
+    <a href="{{ url_for('main.criar_tarefa') }}" class="btn btn-primary">Criar a primeira tarefa</a>
+</div>
+{% endif %}
 
 {% endblock %}
     

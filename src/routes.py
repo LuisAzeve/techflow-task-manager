@@ -9,3 +9,7 @@ def pagina_inicial():
 @main_routes.route("/create")
 def criar_tarefa():
     return render_template("create.html")
+
+@main_routes.route("/edit")
+def editar_tarefa():
+    return render_template ("edit.html")

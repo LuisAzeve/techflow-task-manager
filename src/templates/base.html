@@ -2,18 +2,35 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>TechFlow Task Manager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TechFlow Task Manager{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-    <header>
-        <h1>TechFlow Task Manager</h1>
-        <hr>
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" href="{{ url_for('main.pagina_inicial') }}">
+                <span class="brand-name">TechFlow</span>
+                <span class="brand-tag">Task Manager</span>
+            </a>
+            <nav class="main-nav">
+                <a href="{{ url_for('main.pagina_inicial') }}">Tarefas</a>
+                <a href="{{ url_for('main.criar_tarefa') }}" class="nav-cta">Nova tarefa</a>
+            </nav>
+        </div>
     </header>
 
-    {% block content %}
-    {% endblock %}
+    <main class="page">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <p>TechFlow Solutions &middot; Gerenciador de Tarefas</p>
+    </footer>
 
 </body>
 </html>

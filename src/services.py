@@ -14,7 +14,6 @@ STATUS = {
 
 
 def _buscar_bruta(id_tarefa):
-
     for tarefa in tarefas:
         if tarefa["id"] == id_tarefa:
             return tarefa

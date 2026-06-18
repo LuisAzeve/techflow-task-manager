@@ -1,19 +1,10 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>editar tarefa</title>
-</head>
-<body>
-
 {% extends "base.html" %}
 
 {% block title %}Editar tarefa · TechFlow{% endblock %}
 
 {% block content %}
 
-{% set task = task if task is defined and task else {'id': 1, 'titulo': 'Revisar backlog do sprint', 'descricao': 'Conferir prioridades antes da reunião de planejamento.', 'prioridade': 'alta'} %}
+{% set task = task if task is defined and task else {'id': 1, 'titulo': 'Revisar backlog do sprint', 'descricao': 'Conferir prioridades antes da reunião de planejamento.', 'prioridade': 'Alta', 'prioridade_class': 'alta'} %}
 
 <div class="page-header">
     <div>
@@ -22,7 +13,7 @@
     </div>
 </div>
 
-<form class="task-form" method="POST" action="#">
+<form class="task-form" method="POST" action="{{ url_for('main.editar_tarefa', id_tarefa=task.id) }}">
     <div class="form-group">
         <label for="titulo">Título</label>
         <input type="text" id="titulo" name="titulo" value="{{ task.titulo }}" required>
@@ -36,20 +27,19 @@
     <div class="form-group">
         <label for="prioridade">Prioridade</label>
         <select id="prioridade" name="prioridade">
-            <option value="alta" {% if task.prioridade == 'alta' %}selected{% endif %}>Alta</option>
-            <option value="media" {% if task.prioridade == 'media' %}selected{% endif %}>Média</option>
-            <option value="baixa" {% if task.prioridade == 'baixa' %}selected{% endif %}>Baixa</option>
+            <option value="alta" {% if task.prioridade_class == 'alta' %}selected{% endif %}>Alta</option>
+            <option value="media" {% if task.prioridade_class == 'media' %}selected{% endif %}>Média</option>
+            <option value="baixa" {% if task.prioridade_class == 'baixa' %}selected{% endif %}>Baixa</option>
         </select>
     </div>
 
     <div class="form-actions">
         <a href="{{ url_for('main.pagina_inicial') }}" class="btn btn-secondary">Cancelar</a>
         <button type="submit" class="btn btn-primary">Salvar alterações</button>
-        <a href="#" class="btn btn-danger-outline">Excluir tarefa</a>
+        <button type="submit" form="form-excluir-tarefa" class="btn btn-danger-outline">Excluir tarefa</button>
     </div>
 </form>
 
+<form id="form-excluir-tarefa" method="POST" action="{{ url_for('main.excluir_tarefa', id_tarefa=task.id) }}"></form>
+
 {% endblock %}
-    
-</body>
-</html>

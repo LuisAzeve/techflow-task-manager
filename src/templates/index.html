@@ -1,24 +1,8 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página inicial</title>
-</head>
-<body>
-
 {% extends "base.html" %}
 
 {% block title %}Tarefas · TechFlow{% endblock %}
 
 {% block content %}
-
-{% set tasks = tasks if tasks is defined and tasks else [
-    {'id': 1, 'titulo': 'Revisar backlog do sprint', 'descricao': 'Conferir prioridades antes da reunião de planejamento.', 'prioridade': 'Alta', 'prioridade_class': 'alta', 'status': 'Em andamento', 'status_class': 'andamento'},
-    {'id': 2, 'titulo': 'Atualizar documentação da API', 'descricao': 'Adicionar exemplos de uso dos endpoints novos.', 'prioridade': 'Média', 'prioridade_class': 'media', 'status': 'Pendente', 'status_class': 'pendente'},
-    {'id': 3, 'titulo': 'Corrigir bug no login', 'descricao': 'Usuários relataram falha ao redefinir senha.', 'prioridade': 'Alta', 'prioridade_class': 'alta', 'status': 'Pendente', 'status_class': 'pendente'},
-    {'id': 4, 'titulo': 'Organizar reunião de retrospectiva', 'descricao': 'Agendar para a última sexta-feira do mês.', 'prioridade': 'Baixa', 'prioridade_class': 'baixa', 'status': 'Concluída', 'status_class': 'concluida'}
-] %}
 
 <div class="page-header">
     <div>
@@ -42,8 +26,10 @@
         <div class="task-meta">
             <span class="badge status-{{ task.status_class }}">{{ task.status }}</span>
             <div class="task-actions">
-                <a href="#" class="link-action">Editar</a>
-                <a href="#" class="link-action link-danger">Excluir</a>
+                <a href="{{ url_for('main.editar_tarefa', id_tarefa=task.id) }}" class="link-action">Editar</a>
+                <form method="POST" action="{{ url_for('main.excluir_tarefa', id_tarefa=task.id) }}" class="delete-form">
+                    <button type="submit" class="link-action link-danger">Excluir</button>
+                </form>
             </div>
         </div>
     </li>
@@ -57,6 +43,3 @@
 {% endif %}
 
 {% endblock %}
-    
-</body>
-</html>

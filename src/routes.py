@@ -34,8 +34,9 @@ def editar_tarefa(id_tarefa):
         titulo = request.form.get("titulo")
         descricao = request.form.get("descricao")
         prioridade = request.form.get("prioridade")
+        status = request.form.get("status")
 
-        services.editar_tarefa(id_tarefa, titulo, descricao, prioridade)
+        services.editar_tarefa(id_tarefa, titulo, descricao, prioridade, status)
         return redirect(url_for("main.pagina_inicial"))
 
     return render_template("edit.html", task=tarefa)

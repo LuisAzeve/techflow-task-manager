@@ -58,7 +58,7 @@ def criar_tarefa(titulo, descricao, prioridade):
     return nova_tarefa
 
 
-def editar_tarefa(id_tarefa, titulo, descricao, prioridade):
+def editar_tarefa(id_tarefa, titulo, descricao, prioridade, status=None):
 
     tarefa = _buscar_bruta(id_tarefa)
 
@@ -68,6 +68,8 @@ def editar_tarefa(id_tarefa, titulo, descricao, prioridade):
     tarefa["titulo"] = titulo
     tarefa["descricao"] = descricao
     tarefa["prioridade"] = prioridade
+    if status is not None:
+        tarefa["status"] = status
 
     return True
 

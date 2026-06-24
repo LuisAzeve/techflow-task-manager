@@ -25,7 +25,7 @@ Desenvolver um sistema básico de gerenciamento de tarefas aplicando conceitos d
 - ✅ Visualização da lista de tarefas;
 - ✅ Edição de tarefas;
 - ✅ Exclusão de tarefas;
-- ✅ Definição de prioridade das tarefas (implementada como alteração de escopo do projeto);
+- ✅ Classificação de tarefas por nível de prioridade (Alta, Média e Baixa) — implementada como alteração de escopo;
 - ✅ Testes automatizados;
 - ✅ Pipeline de integração contínua com GitHub Actions.
 
@@ -33,7 +33,7 @@ Desenvolver um sistema básico de gerenciamento de tarefas aplicando conceitos d
 
 ## 🛠️ Tecnologias Utilizadas
 
-- Python 3.x
+- Python 3.12
 - Flask
 - Pytest
 - Git e GitHub
@@ -45,12 +45,19 @@ Desenvolver um sistema básico de gerenciamento de tarefas aplicando conceitos d
 ## 📂 Estrutura do Projeto
 
 ```text
-src/            -> Código-fonte da aplicação
-tests/          -> Testes automatizados
-docs/           -> Diagramas UML e documentação complementar
-.github/        -> Configuração do GitHub Actions
-templates/      -> Interfaces HTML
-static/         -> Arquivos CSS
+techflow-task-manager/
+├── .github/workflows/   -> Pipeline de integração contínua (GitHub Actions)
+├── docs/                -> Diagramas UML e documentação complementar
+├── src/
+│   ├── static/          -> Arquivos CSS
+│   ├── templates/       -> Interfaces HTML (Jinja2)
+│   ├── app.py           -> Inicialização do servidor Flask
+│   ├── routes.py        -> Definição das rotas da aplicação
+│   ├── services.py      -> Lógica de negócio e gerenciamento de dados
+│   └── models.py        -> Definição da estrutura de dados
+├── tests/               -> Testes automatizados com Pytest
+├── conftest.py          -> Configuração do ambiente de testes
+└── requirements.txt     -> Dependências do projeto
 ```
 
 ---
@@ -70,15 +77,40 @@ As atividades foram divididas em tarefas menores e acompanhadas durante todo o c
 
 ### Alteração de Escopo
 
-Durante o desenvolvimento, foi simulada uma solicitação do cliente para incluir uma nova funcionalidade: **classificação das tarefas por nível de prioridade (Alta, Média e Baixa)**.
+Durante o desenvolvimento, foi identificada a necessidade de incluir uma nova funcionalidade não prevista no escopo inicial: a **classificação das tarefas por nível de prioridade (Alta, Média e Baixa)**.
 
-A alteração foi registrada no quadro Kanban, implementada no sistema e documentada neste repositório, demonstrando a flexibilidade das metodologias ágeis para adaptação a novas necessidades.
+A solicitação partiu do cliente, que precisava distinguir tarefas críticas das demais para melhor organizar o fluxo de trabalho da equipe.
+
+**Como a mudança foi gerenciada:**
+
+1. Um novo card foi criado no quadro Kanban (GitHub Projects) descrevendo a funcionalidade;
+2. O card passou pelas colunas To Do → In Progress → Done conforme o desenvolvimento avançou;
+3. A funcionalidade foi implementada na camada de serviço (`services.py`) e refletida nas telas de criação e edição de tarefas;
+4. Um novo commit foi registrado documentando a mudança.
 
 ---
 
 ## 🧪 Testes Automatizados
 
-O projeto utiliza **Pytest** para validação das funcionalidades básicas da aplicação. Os testes são executados automaticamente por meio do **GitHub Actions** sempre que há uma atualização no repositório.
+O projeto utiliza **Pytest** para validação das funcionalidades da aplicação. São 11 testes organizados em dois grupos:
+
+- **Testes de serviço:** validam as operações de criar, listar, buscar, editar e excluir tarefas diretamente na camada de lógica (`services.py`), incluindo cenários de erro (ex: editar ou excluir uma tarefa que não existe);
+- **Testes de rota:** validam o comportamento das rotas HTTP, como o retorno correto de páginas e o tratamento de requisições com dados inválidos (ex: acessar `/edit/999` retorna 404).
+
+Os testes são executados automaticamente pelo **GitHub Actions** a cada `push` na branch `main`.
+
+---
+
+## ⚙️ Integração Contínua (CI)
+
+O pipeline configurado em `.github/workflows/ci.yml` executa automaticamente os seguintes passos a cada atualização no repositório:
+
+1. Checkout do código;
+2. Configuração do Python 3.12;
+3. Instalação das dependências via `requirements.txt`;
+4. Execução dos testes com `pytest -v`.
+
+Se todos os testes passarem, o commit recebe um ✅. Caso algum falhe, o commit recebe um ❌ e a equipe é notificada.
 
 ---
 
@@ -118,4 +150,4 @@ pytest
 
 ## 👨‍💻 Autor
 
-Projeto desenvolvido para fins acadêmicos, como atividade prática da disciplina de Engenharia de Software.
+Projeto desenvolvido para fins acadêmicos, como atividade prática da disciplina de Engenharia de Software — UniFECAF.

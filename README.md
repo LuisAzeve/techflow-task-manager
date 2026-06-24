@@ -74,19 +74,19 @@ As atividades foram divididas em tarefas menores e acompanhadas durante todo o c
 ---
 
 ## 🔄 Gestão de Mudanças
-
+ 
 ### Alteração de Escopo
-
-Durante o desenvolvimento, foi identificada a necessidade de incluir uma nova funcionalidade não prevista no escopo inicial: a **classificação das tarefas por nível de prioridade (Alta, Média e Baixa)**.
-
-A solicitação partiu do cliente, que precisava distinguir tarefas críticas das demais para melhor organizar o fluxo de trabalho da equipe.
-
+ 
+Durante o desenvolvimento, foi identificada a necessidade de incluir uma nova funcionalidade não prevista no escopo inicial: a **atualização do status das tarefas diretamente pela tela de edição (Pendente, Em andamento e Concluída)**.
+ 
+A solicitação partiu do cliente, que precisava acompanhar o progresso de cada tarefa em tempo real sem depender apenas do quadro Kanban externo.
+ 
 **Como a mudança foi gerenciada:**
-
+ 
 1. Um novo card foi criado no quadro Kanban (GitHub Projects) descrevendo a funcionalidade;
 2. O card passou pelas colunas To Do → In Progress → Done conforme o desenvolvimento avançou;
-3. A funcionalidade foi implementada na camada de serviço (`services.py`) e refletida nas telas de criação e edição de tarefas;
-4. Um novo commit foi registrado documentando a mudança.
+3. A funcionalidade foi implementada em `services.py`, `routes.py` e no template `edit.html`, adicionando o campo de status ao formulário de edição;
+4. Um novo commit foi registrado documentando a mudança: `feat: adiciona campo de status na edição de tarefas (mudança de escopo)`.
 
 ---
 
